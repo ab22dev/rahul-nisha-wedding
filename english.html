@@ -5,6 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Rahul &amp; Nisha — Wedding Invitation · 11 December 2026</title>
 <meta name="description" content="Rahul weds Nisha — Friday, 11 December 2026">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Rahul &amp; Nisha Wedding">
+<meta property="og:title" content="Rahul &amp; Nisha — Wedding Invitation 💍">
+<meta property="og:description" content="You're invited! Friday, 11 December 2026 · Geeta Niwas, Bikharniya Kalan, Nagaur. Tap to open the invitation.">
+<meta property="og:url" content="https://ab22dev.github.io/rahul-nisha-wedding/english.html">
+<meta property="og:locale" content="en_IN">
+<meta property="og:image" content="https://ab22dev.github.io/rahul-nisha-wedding/og-en.jpg">
+<meta property="og:image:secure_url" content="https://ab22dev.github.io/rahul-nisha-wedding/og-en.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Rahul &amp; Nisha — Wedding Invitation 💍">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Rahul &amp; Nisha — Wedding Invitation 💍">
+<meta name="twitter:description" content="You're invited! Friday, 11 December 2026 · Geeta Niwas, Bikharniya Kalan, Nagaur. Tap to open the invitation.">
+<meta name="twitter:image" content="https://ab22dev.github.io/rahul-nisha-wedding/og-en.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%8D%3C/text%3E%3C/svg%3E">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Montserrat:wght@400;500;600&family=Tiro+Devanagari+Hindi&display=swap" rel="stylesheet">
@@ -709,17 +727,17 @@ footer{font-size:11px;letter-spacing:.1em;padding:22px;text-align:center;backgro
 <div class="toast" id="toast"></div>
 
 <script>
-/* ---- original wedding tune: shehnai in Raag Bhupali + tanpura + soft dholak (Web Audio, no files) ---- */
+/* ---- original wedding tune: bansuri in Raag Yaman + santoor + tanpura + soft dholak (Web Audio, no files) ---- */
 const Tune = (() => {
   let ctx, master, wet, voice, playing = false, timer = null, startAt = 0, cursor = 0, events = [];
-  const BPM = 74, BEAT = 60 / BPM, SA = 277.18;           // Sa = C#
-  const RAT = { S:1, R:9/8, G:5/4, P:3/2, D:5/3 };
+  const BPM = 82, BEAT = 60 / BPM, SA = 293.66;           // Sa = D
+  const RAT = { S:1, R:9/8, G:5/4, M:45/32, P:3/2, D:5/3, N:15/8 };
   const hz = n => { let o = 1; if (n.endsWith("'")) { o = 2; n = n[0]; } else if (n.endsWith(".")) { o = .5; n = n[0]; } return SA * RAT[n] * o; };
   const PHRASES = [
-    "-:4 G:1 R:.5 S:.5 D.:1 S:1 R:2 G:3 -:3",
-    "G:1 P:1 D:1 P:.5 G:.5 R:1 G:1 P:2 G:1 R:.5 S:.5 R:1 S:3 -:2",
-    "P:1 D:1 S':2 R':1 S':1 D:1 P:1 G:1 P:1 D:2 P:1 G:1 R:1 -:1",
-    "G:1 G:.5 P:.5 D:1 P:1 G:1 R:1 S:1 D.:1 S:2 R:.5 G:.5 R:1 S:3 -:1"
+    "-:2 N.:1 R:1 G:2 M:1 D:1 N:2 D:1 P:1 M:1 G:1 R:2",
+    "G:1 M:1 D:1 N:1 S':3 N:1 D:1 P:1 M:1 G:1 R:1 S:2 -:1",
+    "N.:1 R:1 G:1 M:1 P:2 M:.5 G:.5 R:1 G:2 M:1 D:1 N:1 D:1 P:2",
+    "M:1 G:1 R:1 S:1 N.:1 D.:1 N.:1 R:1 G:3 R:1 S:3 -:1"
   ];
   let LOOP = 0;
   function build() {
@@ -733,6 +751,8 @@ const Tune = (() => {
     for (let i = 0; i < LOOP; i++) events.push({ b: i, k: "tan", f: tan[i % 4] });
     const dh = { 0:"D", 2:"n", 3:"n", 4:"t", 6:"n", 8:"D", 10:"n", 11:"n", 12:"t", 14:"n" };
     for (let h = 0; h < LOOP * 2; h++) { const s = dh[h % 16]; if (s) events.push({ b: h / 2, k: "drum", s }); }
+    const arp = ["S","G","P","G","N.","R","G","R","D.","S","G","S","P.","N.","R","N."].map(hz);
+    for (let h = 0; h < LOOP * 2; h++) events.push({ b: h / 2, k: "san", f: arp[(h >> 0) % 16] / 2, acc: h % 4 === 0 });
     events.sort((a, b) => a.b - b.b);
   }
   function impulse(sec) {
@@ -746,43 +766,57 @@ const Tune = (() => {
     const comp = ctx.createDynamicsCompressor(); master.connect(comp); comp.connect(ctx.destination);
     const rev = ctx.createConvolver(); rev.buffer = impulse(2.8);
     wet = ctx.createGain(); wet.gain.value = .32; wet.connect(rev); rev.connect(master);
-    // shehnai voice: two reedy oscillators, vibrato, formant filtering
-    const o1 = ctx.createOscillator(), o2 = ctx.createOscillator(); o1.type = "sawtooth"; o2.type = "square"; o2.detune.value = 6;
-    const lfo = ctx.createOscillator(), lfoG = ctx.createGain(); lfo.frequency.value = 5.2; lfoG.gain.value = 3.2;
+    // bansuri voice: soft sine/triangle, breath noise, gentle vibrato
+    const o1 = ctx.createOscillator(), o2 = ctx.createOscillator(); o1.type = "sine"; o2.type = "triangle"; o2.detune.value = 4;
+    const lfo = ctx.createOscillator(), lfoG = ctx.createGain(); lfo.frequency.value = 4.8; lfoG.gain.value = 4.5;
     lfo.connect(lfoG); lfoG.connect(o1.frequency); lfoG.connect(o2.frequency);
-    const mix2 = ctx.createGain(); mix2.gain.value = .35; o2.connect(mix2);
-    const hp = ctx.createBiquadFilter(); hp.type = "highpass"; hp.frequency.value = 320;
-    const pk = ctx.createBiquadFilter(); pk.type = "peaking"; pk.frequency.value = 1150; pk.Q.value = 1.4; pk.gain.value = 9;
-    const pk2 = ctx.createBiquadFilter(); pk2.type = "peaking"; pk2.frequency.value = 2600; pk2.Q.value = 2; pk2.gain.value = 4;
-    const lp = ctx.createBiquadFilter(); lp.type = "lowpass"; lp.frequency.value = 3400;
+    const mix2 = ctx.createGain(); mix2.gain.value = .32; o2.connect(mix2);
+    const nb = ctx.createBuffer(1, ctx.sampleRate * 2, ctx.sampleRate), nd = nb.getChannelData(0);
+    for (let i = 0; i < nd.length; i++) nd[i] = Math.random() * 2 - 1;
+    const breath = ctx.createBufferSource(); breath.buffer = nb; breath.loop = true;
+    const bbp = ctx.createBiquadFilter(); bbp.type = "bandpass"; bbp.frequency.value = 2200; bbp.Q.value = .8;
+    const bg = ctx.createGain(); bg.gain.value = .07; breath.connect(bbp); bbp.connect(bg);
+    const lp = ctx.createBiquadFilter(); lp.type = "lowpass"; lp.frequency.value = 3000;
     const vg = ctx.createGain(); vg.gain.value = 0;
-    o1.connect(hp); mix2.connect(hp); hp.connect(pk); pk.connect(pk2); pk2.connect(lp); lp.connect(vg);
-    const dry = ctx.createGain(); dry.gain.value = .55; vg.connect(dry); dry.connect(master); vg.connect(wet);
-    o1.frequency.value = o2.frequency.value = SA; [o1, o2, lfo].forEach(o => o.start());
-    voice = { o1, o2, g: vg, last: SA };
+    o1.connect(lp); mix2.connect(lp); bg.connect(lp); lp.connect(vg);
+    const dry = ctx.createGain(); dry.gain.value = .6; vg.connect(dry); dry.connect(master); vg.connect(wet);
+    o1.frequency.value = o2.frequency.value = SA * 2; [o1, o2, lfo, breath].forEach(o => o.start());
+    voice = { o1, o2, g: vg, last: SA * 2 };
     build();
   }
   function note(t, f, dur) {
     const { o1, o2, g } = voice, glide = Math.min(.14, dur * BEAT * .3);
     [o1, o2].forEach(o => { o.frequency.cancelScheduledValues(t); o.frequency.setValueAtTime(voice.last, t); o.frequency.exponentialRampToValueAtTime(f, t + glide); });
     voice.last = f;
-    g.gain.cancelScheduledValues(t); g.gain.setTargetAtTime(.075, t, .015); g.gain.setTargetAtTime(.16, t + .03, .05);
-    g.gain.setTargetAtTime(.12, t + dur * BEAT * .6, .2);
+    g.gain.cancelScheduledValues(t); g.gain.setTargetAtTime(.09, t, .02); g.gain.setTargetAtTime(.2, t + .05, .08);
+    g.gain.setTargetAtTime(.15, t + dur * BEAT * .6, .25);
   }
   function rest(t) { voice.g.gain.cancelScheduledValues(t); voice.g.gain.setTargetAtTime(0, t, .12); }
   function tanpura(t, f) {
     [1, 2.003, 3.01].forEach((m, i) => {
       const o = ctx.createOscillator(), g = ctx.createGain(), lp = ctx.createBiquadFilter();
       o.type = "sawtooth"; o.frequency.value = f * m; lp.type = "lowpass"; lp.frequency.setValueAtTime(2400, t); lp.frequency.exponentialRampToValueAtTime(500, t + 3);
-      g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(.045 / (i + 1), t + .02); g.gain.exponentialRampToValueAtTime(.0005, t + 3.4);
+      g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(.028 / (i + 1), t + .02); g.gain.exponentialRampToValueAtTime(.0005, t + 3.4);
       o.connect(lp); lp.connect(g); g.connect(master); g.connect(wet); o.start(t); o.stop(t + 3.5);
+    });
+  }
+  function santoor(t, f, acc) {
+    [0, .045].forEach((dt, k) => {
+      const o = ctx.createOscillator(), o3 = ctx.createOscillator(), g = ctx.createGain(), hp = ctx.createBiquadFilter();
+      o.type = "triangle"; o.frequency.value = f; o3.type = "sine"; o3.frequency.value = f * 3.01;
+      hp.type = "highpass"; hp.frequency.value = 180;
+      const peak = (acc ? .05 : .032) * (k ? .55 : 1), s = t + dt;
+      g.gain.setValueAtTime(0, s); g.gain.linearRampToValueAtTime(peak, s + .004); g.gain.exponentialRampToValueAtTime(.0004, s + 1.3);
+      const g3 = ctx.createGain(); g3.gain.value = .35;
+      o.connect(hp); o3.connect(g3); g3.connect(hp); hp.connect(g); g.connect(master); g.connect(wet);
+      o.start(s); o3.start(s); o.stop(s + 1.4); o3.stop(s + 1.4);
     });
   }
   function drum(t, s) {
     if (s === "D") {
       const o = ctx.createOscillator(), g = ctx.createGain();
       o.frequency.setValueAtTime(120, t); o.frequency.exponentialRampToValueAtTime(52, t + .25);
-      g.gain.setValueAtTime(.16, t); g.gain.exponentialRampToValueAtTime(.001, t + .35);
+      g.gain.setValueAtTime(.11, t); g.gain.exponentialRampToValueAtTime(.001, t + .35);
       o.connect(g); g.connect(master); o.start(t); o.stop(t + .4);
     }
     const n = ctx.createBufferSource(), buf = ctx.createBuffer(1, ctx.sampleRate * .12, ctx.sampleRate), d = buf.getChannelData(0);
@@ -799,7 +833,7 @@ const Tune = (() => {
       const t = startAt + (loopN * LOOP + e.b) * BEAT;
       if (t > ahead) break;
       if (t >= ctx.currentTime - .05) {
-        if (e.k === "note") note(t, e.f, e.dur); else if (e.k === "rest") rest(t);
+        if (e.k === "note") note(t, e.f * 2, e.dur); else if (e.k === "san") santoor(t, e.f, e.acc); else if (e.k === "rest") rest(t);
         else if (e.k === "tan") tanpura(t, e.f); else drum(t, e.s);
       }
       cursor++;
@@ -811,7 +845,7 @@ const Tune = (() => {
         if (!ctx) init();
         ctx.resume();
         if (!timer) { startAt = ctx.currentTime + .15; cursor = 0; timer = setInterval(tick, 60); }
-        master.gain.cancelScheduledValues(ctx.currentTime); master.gain.setTargetAtTime(.62, ctx.currentTime, .8);
+        master.gain.cancelScheduledValues(ctx.currentTime); master.gain.setTargetAtTime(.5, ctx.currentTime, .8);
         playing = true;
       } catch (e) { playing = false; }
       return playing;
