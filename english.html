@@ -214,10 +214,11 @@ h2.t{font-family:"Great Vibes";font-weight:400;font-size:48px;color:var(--maroon
 .fam{background:linear-gradient(180deg,var(--cream),#f1dcb9)}
 .fam h4{font-family:"Cormorant Garamond";font-weight:600;font-size:19px;color:var(--maroon);margin-top:26px}
 .fam p{font-size:13px;line-height:1.75;color:var(--muted);margin-top:4px}
-.dancers{display:flex;justify-content:space-between;align-items:flex-end;margin-top:20px}
+.dancers{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;margin-top:20px}
+.dancers .mid{order:-1;flex:0 0 100%!important;padding-bottom:6px!important}
 .dancers img{width:25%;animation:dance 1.4s ease-in-out infinite}
 .dancers img.r{transform:scaleX(-1);animation-name:danceR;animation-delay:-.7s}
-.dancers .mid{flex:1;font-family:"Great Vibes";font-size:30px;color:var(--maroon);line-height:1.2;padding-bottom:20px}
+.dancers .mid{flex:1;font-family:"Great Vibes";font-size:29px;color:var(--maroon);line-height:1.2;padding-bottom:20px}
 @keyframes dance{25%{transform:rotate(-4deg) translateY(-4px)}75%{transform:rotate(4deg) translateY(-4px)}}
 @keyframes danceR{0%,50%,100%{transform:scaleX(-1)}25%{transform:scaleX(-1) rotate(-4deg) translateY(-4px)}75%{transform:scaleX(-1) rotate(4deg) translateY(-4px)}}
 
@@ -702,7 +703,7 @@ footer{font-size:11px;letter-spacing:.1em;padding:22px;text-align:center;backgro
   <div class="rv"><h4>Eagerly awaiting you</h4><p>Laxminarayan, Rameshchandra, Govindlal, Harinarayan, Mukesh, Rakesh, Anil, Deepak, Ritik, Nikhil, Krishnakant, Sumit, Pragyan, Siddharth, Raunak, Ganesh, Jai, Rudra, Abhimanyu &amp; the entire Pathaniya family</p></div>
   <div class="dancers rv">
     <img data-img="baraatL" alt="">
-    <div class="mid">“Haldi hai chandan hai,<br>rishton ka bandhan hai…”<span style="display:block;font-family:Montserrat;font-size:11px;letter-spacing:.12em;color:#7d6553;margin-top:6px">— Khushi, Siddhi, Pari, Girija &amp; Shri</span></div>
+    <div class="mid">“Haldi hai chandan hai,<br>rishton ka bandhan hai,<br>humare bhaiya ki shaadi mein<br>aapka abhinandan hai”<span style="display:block;font-family:Montserrat;font-size:11px;letter-spacing:.12em;color:#7d6553;margin-top:6px">— Khushi, Siddhi, Pari, Girija &amp; Shri</span></div>
     <img class="r" data-img="baraatL" alt="">
   </div>
 </section>
