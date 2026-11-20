@@ -719,7 +719,7 @@ footer{font-size:11px;letter-spacing:.1em;padding:22px;text-align:center;backgro
     </div>
   </div>
 </section>
-<footer>Your gracious presence is our blessing 🙏<br><span style="font-size:10px;opacity:.65">Music: “Traditional wedding ceremonial vibe with shehnai” by DesiFreeMusic (Pixabay)</span></footer>
+<footer>Your gracious presence is our blessing 🙏<br><span style="font-size:10px;opacity:.65">Music: “Traditional wedding ceremonial vibe with shehnai” by DesiFreeMusic &amp; “Rajasthani desert folk” — Pixabay</span></footer>
 </div>
 
 <button id="music" aria-label="Toggle music"><i></i><i></i><i></i></button>
@@ -859,7 +859,11 @@ const IMG = {"p_rahul": "data:image/webp;base64,UklGRrBgAABXRUJQVlA4IKRgAABQrAGd
 document.querySelectorAll("[data-img]").forEach(el => el.src = IMG[el.dataset.img]);
 document.querySelectorAll("[data-bg]").forEach(el => el.style.backgroundImage = `url(${IMG[el.dataset.bg]})`);
 (function(){
-const MUSIC_URL = "https://cdn.pixabay.com/download/audio/2025/07/17/audio_15a2d7750c.mp3?filename=desifreemusic-traditional-wedding_ceremonial-vibe-with-shehna-376293.mp3";   // "Traditional wedding ceremonial vibe with shehnai" by DesiFreeMusic (Pixabay Content License)
+const TRACKS = [   // royalty-free (Pixabay Content License)
+  { src: "https://cdn.pixabay.com/download/audio/2025/07/17/audio_15a2d7750c.mp3?filename=desifreemusic-traditional-wedding_ceremonial-vibe-with-shehna-376293.mp3", vol: .8 },   // "Traditional wedding ceremonial vibe with shehnai" by DesiFreeMusic
+  { src: "https://cdn.pixabay.com/download/audio/2026/07/10/audio_d71da03789.mp3?filename=u_f7ldtnc2hk-rajasthani-desert-folk-cinematic-moderate-tempo-561542.mp3", vol: .5 }    // "Rajasthani desert folk" (sarangi, khartal, morchang, matka)
+];
+const MUSIC_URL = TRACKS[0].src;
 const PHONES = ["9982805790","9461628038","9328598732","9374873954"];
 const COUNT_TO = "2026-12-11T10:31:00+05:30";
 const HOME = "Geeta Niwas, Bikharniya Kalan, Teh. Degana, Dist. Nagaur, Rajasthan 341031";
@@ -993,12 +997,17 @@ function burst(n = 40, x){ if (reduce) return; for (let i = 0; i < n; i++) setTi
 const audio = $("audio"), mb = $("music");
 mb.style.display = "flex";
 let useSynth = !MUSIC_URL, fadeT = null;
-if (MUSIC_URL) { audio.src = MUSIC_URL; audio.loop = true; audio.preload = "auto"; audio.addEventListener("error", () => { useSynth = true; if (mb.classList.contains("on")) Tune.start(); }); }
+let ti = 0;
+if (MUSIC_URL) {
+  audio.src = TRACKS[0].src; audio.loop = false; audio.preload = "auto";
+  audio.addEventListener("ended", () => { ti = (ti + 1) % TRACKS.length; audio.src = TRACKS[ti].src; audio.volume = TRACKS[ti].vol; audio.play().catch(() => {}); });
+  audio.addEventListener("error", () => { useSynth = true; if (mb.classList.contains("on")) Tune.start(); });
+}
 const fadeTo = (v, ms) => { clearInterval(fadeT); const st = audio.volume, t0 = performance.now(); fadeT = setInterval(() => { const k = Math.min(1, (performance.now() - t0) / ms); audio.volume = st + (v - st) * k; if (k >= 1) { clearInterval(fadeT); if (v === 0) audio.pause(); } }, 50); };
 const musicOn = () => useSynth ? Tune.playing : !audio.paused;
 const playMusic = () => {
   if (useSynth) { if (Tune.start()) mb.classList.add("on"); return; }
-  audio.volume = 0; audio.play().then(() => { mb.classList.add("on"); fadeTo(.75, 2500); }).catch(() => { useSynth = true; if (Tune.start()) mb.classList.add("on"); });
+  audio.volume = 0; audio.play().then(() => { mb.classList.add("on"); fadeTo(TRACKS[ti].vol, 2500); }).catch(() => { useSynth = true; if (Tune.start()) mb.classList.add("on"); });
 };
 const stopMusic = () => { if (useSynth) Tune.stop(); else fadeTo(0, 600); mb.classList.remove("on"); };
 mb.addEventListener("click", () => musicOn() ? stopMusic() : playMusic());
