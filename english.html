@@ -688,7 +688,7 @@ footer{font-size:11px;letter-spacing:.1em;padding:22px;text-align:center;backgro
     <p class="sub">Shri Shivnarayan Radheshyam Rajaram Pathaniya<br>Bikharniya Kalan, via Padu Kalan, Teh. Degana<br>District Nagaur, Rajasthan – 341031</p>
     <div class="phones" id="phones"></div>
     <div class="acts">
-      <a class="pill solid" target="_blank" rel="noopener" href="https://maps.app.goo.gl/pQ5MxNTrGSs6CDf36?g_st=aw">📍 Geeta Niwas</a>
+      <a class="pill solid" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=26.6674969%2C74.3388487">📍 Geeta Niwas</a>
       <a class="pill" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Mehrwas%2C+Rajasthan">📍 Mehrwas (Baraat)</a>
     </div>
   </div>
@@ -895,7 +895,7 @@ const gcal = (title, iso, loc) => {
   return "https://calendar.google.com/calendar/render?action=TEMPLATE&text=" + encodeURIComponent(title + " — Rahul & Nisha")
     + "&dates=" + f(s) + "/" + f(e) + "&location=" + encodeURIComponent(loc);
 };
-const maps = q => q === HOME ? "https://maps.app.goo.gl/pQ5MxNTrGSs6CDf36?g_st=aw" : "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(q.replace("Bride's residence, ",""));
+const maps = q => q === HOME ? "https://www.google.com/maps/search/?api=1&query=26.6674969%2C74.3388487" : "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(q.replace("Bride's residence, ",""));
 EVENTS.forEach(([day, list]) => {
   $("evList").insertAdjacentHTML("beforeend", `<div class="day-h rv">${day}</div>`);
   list.forEach(([n, hi, iso, t, loc, main], i) => {
